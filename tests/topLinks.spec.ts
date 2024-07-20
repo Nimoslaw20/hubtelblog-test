@@ -22,6 +22,12 @@ describe("Verification of Top Links & One Article Found", async ({  })=>{
 
   test('Press Releases', async ({ page }, testInfo) => {
     await verifyTopLinks(page, testInfo.title);
+    const articles = await page.locator(
+     'h5'
+    ).count();
+    console.log("articles is ", articles);
+    // Get the count of articles
+    await expect(articles).toBeGreaterThan(0);
 
   }); 
 
