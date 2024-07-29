@@ -1,14 +1,14 @@
 import { test, expect, } from '@playwright/test';
 import { describe } from 'node:test';
-import { verifyTopLinks, verifyTopLinksForMultipleElement, countSquareArticle } from '../support/helpers';
-
+import { verifyTopLinks, gotoPage, verifyTopLinksForMultipleElement, countSquareArticle, verifyTopLinksForMultipleElementSpecificallyForProductUpdates } from '../support/helpers';
+import { BASE_URL } from '../support/config'; 
 
 
 //test suite for top links
 describe("Verification of Top Links & One Article Found", async ({  })=>{
   
   test('Official Hubtel Blog page', async ({ page }) => {
-    await page.goto('https://blog.hubtel.com/');
+    await gotoPage(page);
     // Expect a title "to contain" a substring.
     await expect(page).toHaveTitle(/The Official Hubtel Blog/);
   });
@@ -37,9 +37,11 @@ describe("Verification of Top Links & One Article Found", async ({  })=>{
   }); 
 
   test('Product Updates', async ({ page }, testInfo) => {
-    await verifyTopLinks(page, testInfo.title);
+    await verifyTopLinksForMultipleElementSpecificallyForProductUpdates(page, testInfo.title);
     await countSquareArticle(page);
   }); 
+
+
 
   test('Guides', async ({ page }, testInfo) => {
     await verifyTopLinks(page, testInfo.title);
